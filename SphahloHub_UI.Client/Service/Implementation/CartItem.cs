@@ -1,0 +1,23 @@
+﻿using static SphahloHub_UI.Client.Domain.SphahloDTOs;
+
+namespace SphahloHub_UI.Client.Service.Implementation
+{
+    public class CartItem
+    {
+        public SphahloDto Sphahlo { get; set; } = default!;
+        public Dictionary<int, bool> IngredientSelections { get; set; } = new();
+        public int Quantity { get; set; } = 1;
+
+        public decimal CalculatePrice()
+        {
+            var total = Sphahlo.BasePrice;
+            foreach (var ing in Sphahlo.Ingredients)
+            {
+                var selected = IngredientSelections[ing.IngredientId];
+                if (selected != ing.IncludedByDefault)
+                    total += selected ? ing.PriceDelta : -ing.PriceDelta;
+            }
+            return total * Quantity;
+        }
+    }
+}

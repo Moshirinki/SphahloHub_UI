@@ -1,0 +1,68 @@
+﻿@page "/sphahlo/{Id:int}"
+@using SphahloHub_UI.Client.Service.Implementation
+@using static SphahloHub_UI.Client.Domain.SphahloDTOs
+@inject CatalogService Catalog
+@inject CartService Cart
+@inject NavigationManager Nav
+
+@if (sphahlo == null)
+{
+    <MudProgressCircular Indeterminate="true" />
+}
+else
+{
+    <MudPaper Class="p-4">
+        <MudText Typo="Typo.h5">@sphahlo.Name</MudText>
+        <MudText>@sphahlo.Description</MudText>
+        <MudDivider Class="my-2" />
+
+        <MudText Typo="Typo.h6">Customize</MudText>
+        @foreach (var ing in sphahlo.Ingredients)
+        {
+            <MudCheckBox @bind-Checked="selections[ing.IngredientId]"
+                         Label="@($"{ing.Name} ({ing.PriceDelta:+#;-#;0}R)")" />
+        }
+
+        <MudDivider Class="my-2" />
+        <MudText Typo="Typo.h6">Price: @CalcPrice().ToString("C")</MudText>
+
+        <MudButton Variant="Filled" Color="Color.Primary" OnClick="Add">
+            Add to Cart
+        </MudButton>
+    </MudPaper>
+}
+
+@code {
+    [Parameter] public int Id { get; set; }
+    private SphahloDto? sphahlo;
+    private Dictionary<int, bool> selections = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        sphahlo = await Catalog.GetSphahloAsync(Id);
+        if (sphahlo != null)
+            selections = sphahlo.Ingredients.ToDictionary(i => i.IngredientId, i => i.IncludedByDefault);
+    }
+
+    private decimal CalcPrice()
+    {
+        if (sphahlo == null) return 0;
+        var total = sphahlo.BasePrice;
+        foreach (var ing in sphahlo.Ingredients)
+        {
+            var sel = selections[ing.IngredientId];
+            if (sel != ing.IncludedByDefault)
+                total += sel ? ing.PriceDelta : -ing.PriceDelta;
+        }
+        return total;
+    }
+
+    private void Add()
+    {
+        if (sphahlo != null)
+        {
+            Cart.AddToCart(sphahlo, selections);
+            Nav.NavigateTo("/cart");
+        }
+    }
+}
