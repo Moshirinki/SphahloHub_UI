@@ -7,7 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\SphahloHub_UI.Client\Pages\Catalog.razor.cs" Link="Catalog.razor.cs" />
+    <Compile Include="..\SphahloHub_UI.Client\Pages\CartCheckout.razor.cs" Link="CartCheckout.razor.cs" />
+    <Compile Include="..\SphahloHub_UI.Client\Pages\SphahloDetails.razor.cs" Link="SphahloDetails.razor.cs" />
   </ItemGroup>
 
 

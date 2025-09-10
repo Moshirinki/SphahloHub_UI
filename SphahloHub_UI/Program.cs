@@ -1,15 +1,23 @@
 using MudBlazor.Services;
-using SphahloHub_UI.Client.Pages;
+using SphahloHub_UI.Client.Service.Implementation;
+using SphahloHub_UI.Client.Service.Interface;
 using SphahloHub_UI.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add MudBlazor services
 builder.Services.AddMudServices();
-
+builder.Services.AddRazorPages();
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveWebAssemblyComponents();
+
+// register FinanceSpyService with DI
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:44351") });
+builder.Services.AddScoped<ICatalogService, CatalogService>();
+builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+
 
 var app = builder.Build();
 

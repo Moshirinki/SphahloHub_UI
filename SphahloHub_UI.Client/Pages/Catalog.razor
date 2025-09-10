@@ -1,7 +1,8 @@
 ﻿@page "/catalog"
 @using SphahloHub_UI.Client.Service.Implementation
+@using SphahloHub_UI.Client.Service.Interface
 @using static SphahloHub_UI.Client.Domain.SphahloDTOs
-@inject CatalogService Catalog
+@inject ICatalogService _catalog
 @inject NavigationManager Nav
 
 <MudGrid>
@@ -15,7 +16,7 @@
                     <MudText Color="Color.Primary">@sphahlo.BasePrice.ToString("C")</MudText>
                 </MudCardContent>
                 <MudCardActions>
-                    <MudButton Variant="Filled" Color="Color.Primary"
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary"
                                OnClick="@(() => Nav.NavigateTo($"/sphahlo/{sphahlo.Id}"))">
                         Customize
                     </MudButton>
@@ -28,5 +29,5 @@
 @code {
     private List<SphahloDto> _list = new();
     protected override async Task OnInitializedAsync()
-        => _list = await Catalog.GetSphahlosAsync();
+        => _list = await _catalog.GetSphahlosAsync();
 }
