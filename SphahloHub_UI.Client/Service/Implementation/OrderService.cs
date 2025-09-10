@@ -1,16 +1,17 @@
-﻿using System.Net.Http.Json;
+﻿using SphahloHub_UI.Client.Service.Interface;
+using System.Net.Http.Json;
 using static SphahloHub_UI.Client.Domain.SphahloDTOs;
 
 namespace SphahloHub_UI.Client.Service.Implementation
 {
-    public class OrderService
+    public class OrderService : IOrderService
     {
         private readonly HttpClient _http;
         public OrderService(HttpClient http) => _http = http;
 
         public async Task<CreateOrderRes?> PlaceOrderAsync(CartService cart, string provider)
         {
-            var items = cart.Items.Select(ci =>
+            var items = cart.CartItems.Select(ci =>
                 new CreateOrderItemReq(
                     ci.Sphahlo.Id,
                     ci.Quantity,

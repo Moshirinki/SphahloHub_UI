@@ -1,9 +1,10 @@
-﻿using System.Net.Http.Json;
+﻿using SphahloHub_UI.Client.Service.Interface;
+using System.Net.Http.Json;
 using static SphahloHub_UI.Client.Domain.SphahloDTOs;
 
 namespace SphahloHub_UI.Client.Service.Implementation
 {
-    public class CatalogService
+    public class CatalogService : ICatalogService
     {
         private readonly HttpClient _http;
         public CatalogService(HttpClient http) => _http = http;
