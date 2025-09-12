@@ -2,6 +2,10 @@ using MudBlazor.Services;
 using SphahloHub_UI.Client.Service.Implementation;
 using SphahloHub_UI.Client.Service.Interface;
 using SphahloHub_UI.Components;
+using System.Globalization;
+CultureInfo culture = new CultureInfo("en-za");
+CultureInfo.DefaultThreadCurrentCulture = culture;
+CultureInfo.DefaultThreadCurrentUICulture = culture;
 
 var builder = WebApplication.CreateBuilder(args);
 

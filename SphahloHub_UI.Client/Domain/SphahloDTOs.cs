@@ -10,6 +10,7 @@
             string Name,
             string? Description,
             decimal BasePrice,
+            bool IsActive,
             IEnumerable<IngredientSelectionDto> Ingredients
         );
 
