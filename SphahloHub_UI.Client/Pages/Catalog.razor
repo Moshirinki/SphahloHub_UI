@@ -1,4 +1,5 @@
 ﻿@page "/catalog"
+@using SphahloHub_UI.Client.Domain.DTOs
 @using SphahloHub_UI.Client.Service.Implementation
 @using SphahloHub_UI.Client.Service.Interface
 @using static SphahloHub_UI.Client.Domain.SphahloDTOs
@@ -27,7 +28,7 @@
 </MudGrid>
 
 @code {
-    private List<SphahloDto> _list = new();
+    private List<SphahloResponse> _list = new();
     protected override async Task OnInitializedAsync()
-        => _list = await _catalog.GetSphahlosAsync();
+        => _list = await _catalog.GetActiveSphahlosAsync();
 }
