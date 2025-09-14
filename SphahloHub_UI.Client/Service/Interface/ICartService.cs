@@ -1,13 +1,14 @@
-﻿using SphahloHub_UI.Client.Service.Implementation;
-using static SphahloHub_UI.Client.Domain.SphahloDTOs;
+﻿using SphahloHub_UI.Client.Domain.DTOs;
+using SphahloHub_UI.Client.Service.Implementation;
 
 namespace SphahloHub_UI.Client.Service.Interface
 {
     public interface ICartService
     {
-        void AddToCart(SphahloDto sphahlo, Dictionary<int, bool> selections);
-        void Remove(CartItem item);
+        void AddToCart(SphahloResponse sphahlo, int quantity);
+        void UpdateQuantity(int sphahloId, int quantity);
+        void RemoveFromCart(int sphahloId);
         decimal GetTotal();
-        void Clear();
+        void ClearCart();
     }
 }

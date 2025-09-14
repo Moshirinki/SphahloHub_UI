@@ -15,7 +15,7 @@ namespace SphahloHub_UI.Client.Pages
             var res = await _orderService.PlaceOrderAsync(_cartService, "Payfast");
             if (res != null)
             {
-                _cartService.Clear();
+                _cartService.ClearCart();
                 nav.NavigateTo(res.RedirectUrl, forceLoad: true);
             }
         }

@@ -1,10 +1,10 @@
-﻿using static SphahloHub_UI.Client.Domain.SphahloDTOs;
+﻿using SphahloHub_UI.Client.Domain.DTOs;
 
 namespace SphahloHub_UI.Client.Service.Implementation
 {
-    public class CartItem
+    public class CartItemService
     {
-        public SphahloDto Sphahlo { get; set; } = default!;
+        public SphahloResponse Sphahlo { get; set; } = default!;
         public Dictionary<int, bool> IngredientSelections { get; set; } = new();
         public int Quantity { get; set; } = 1;
 
