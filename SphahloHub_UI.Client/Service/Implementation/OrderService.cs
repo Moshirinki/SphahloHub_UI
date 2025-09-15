@@ -19,7 +19,7 @@ namespace SphahloHub_UI.Client.Service.Implementation
                         new CustomiseIngredientReq(
                             ing.IngredientId,
                             ci.IngredientSelections[ing.IngredientId],
-                            ing.PriceDelta
+                            ing.Ingredient.PriceDelta
                         )
                     )
                 )

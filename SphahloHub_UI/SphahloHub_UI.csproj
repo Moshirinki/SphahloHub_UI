@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <Compile Include="..\SphahloHub_UI.Client\Pages\CartCheckout.razor.cs" Link="CartCheckout.razor.cs" />
+    <Compile Include="..\SphahloHub_UI.Client\Pages\Catalog.razor.cs" Link="Catalog.razor.cs" />
+    <Compile Include="..\SphahloHub_UI.Client\Pages\MaintainSphahlo.razor.cs" Link="MaintainSphahlo.razor.cs" />
   </ItemGroup>
 
 

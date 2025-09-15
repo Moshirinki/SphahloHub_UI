@@ -15,7 +15,7 @@ namespace SphahloHub_UI.Client.Service.Implementation
             {
                 var selected = IngredientSelections[ing.IngredientId];
                 if (selected != ing.IncludedByDefault)
-                    total += selected ? ing.PriceDelta : -ing.PriceDelta;
+                    total += selected ? ing.Ingredient.PriceDelta : -ing.Ingredient.PriceDelta;
             }
             return total * Quantity;
         }

@@ -9,7 +9,7 @@ namespace SphahloHub_UI.Client.Domain.DTOs
         public string? Description { get; set; }
         public decimal BasePrice { get; set; }
         public bool IsActive { get; set; }
-        public ICollection<IngredientSelectionDto> Ingredients { get; set; }
+        public ICollection<SphahloIngredient> Ingredients { get; set; } = new List<SphahloIngredient>();
         public string? ImageUrl { get; set; } = "/images/default-sphahlo.png";
     }
 }

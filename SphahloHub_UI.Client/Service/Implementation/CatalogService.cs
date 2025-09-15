@@ -1,8 +1,6 @@
 ﻿using SphahloHub_UI.Client.Domain.DTOs;
 using SphahloHub_UI.Client.Service.Interface;
-using System.Net.Http;
 using System.Net.Http.Json;
-using static SphahloHub_UI.Client.Domain.SphahloDTOs;
 
 namespace SphahloHub_UI.Client.Service.Implementation
 {
@@ -21,13 +19,16 @@ namespace SphahloHub_UI.Client.Service.Implementation
         {
             try
             {
-                var sphahlos = await _http.GetFromJsonAsync<List<SphahloResponse>>("api/sphahlo");
-                return sphahlos ?? new List<SphahloResponse>();
+                var sphahlos = await _http.GetFromJsonAsync<List<SphahloResponse>>("api/sphahlo");                
+                return sphahlos
+                    .Where(x => x.IsActive == true)
+                    .OrderBy(x => x.BasePrice)
+                    .ToList();
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Failed to load available sphahlos.");
-                throw new ApplicationException("Failed to available sphahlos. Please try again later.");
+                throw new ApplicationException("Failed to retrieve available sphahlos. Please try again later.");
             }
         }
 
