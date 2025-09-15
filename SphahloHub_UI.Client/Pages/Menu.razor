@@ -42,15 +42,18 @@
                             <MudText Typo="Typo.body2" Color="Color.Secondary" Style="flex-grow: 1;">
                                 @sphahlo.Description
                             </MudText>
+                            <MudText Typo="Typo.body2" Color="Color.Secondary" Style="flex-grow: 1;">
+                                @sphahlo.Ingredients
+                            </MudText>
                             <MudText Typo="Typo.h6" Color="Color.Primary" Class="mt-3">
                                 R @sphahlo.BasePrice.ToString("F2")
                             </MudText>
                         </MudCardContent>
                         <MudCardActions>
                             <MudGrid>
-                                @* <MudItem xs="8">
+                         @*        <MudItem xs="8">
                                     <MudNumericField @bind-Value="@GetQuantity(sphahlo.Id)"
-                                                     Min="1" Max="10" Class="quantity-input"
+                                                     Min="1" Max="999" Class="quantity-input"
                                                      Variant="Variant.Outlined" />
                                 </MudItem> *@
                                 <MudItem xs="4">
