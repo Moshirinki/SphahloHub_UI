@@ -15,42 +15,42 @@ namespace SphahloHub_UI.Client.Service.Implementation
             _logger = logger;
         }
 
-        public async Task<List<SphahloResponse>> GetActiveSphahlosAsync()
+        public async Task<List<ProductResponse>> GetActiveProductsAsync()
         {
             try
             {
-                var sphahlos = await _http.GetFromJsonAsync<List<SphahloResponse>>("api/sphahlo");                
-                return sphahlos
+                var products = await _http.GetFromJsonAsync<List<ProductResponse>>("api/product");                
+                return products
                     .Where(x => x.IsActive == true)
                     .OrderBy(x => x.BasePrice)
                     .ToList();
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Failed to load available sphahlos.");
-                throw new ApplicationException("Failed to retrieve available sphahlos. Please try again later.");
+                _logger.LogError(ex, "Failed to load available products.");
+                throw new ApplicationException("Failed to retrieve available products. Please try again later.");
             }
         }
 
-        public async Task<SphahloResponse> GetSphahloByIdAsync(int sphahloId)
+        public async Task<ProductResponse> GetProductByIdAsync(int productId)
         {
             try
             {
-                var sphahlo = await _http.GetFromJsonAsync<SphahloResponse>($"api/Sphahlo/{sphahloId}");
-                return sphahlo ?? new SphahloResponse();
+                var product = await _http.GetFromJsonAsync<ProductResponse>($"api/Product/{productId}");
+                return product ?? new ProductResponse();
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Sphahlo with ID:{sphahloId} was not found.");
-                throw new ApplicationException($"Sphahlo with ID:{sphahloId} was not found.");
+                _logger.LogError(ex, $"Product with ID:{productId} was not found.");
+                throw new ApplicationException($"Product with ID:{productId} was not found.");
             }
         }
 
-        public async Task<bool> CreateSphahloAsync(SphahloRequest request)
+        public async Task<bool> CreateProductAsync(ProductRequest request)
         {
             try
             {
-                var response = await _http.PostAsJsonAsync("api/Sphahlo", request);
+                var response = await _http.PostAsJsonAsync("api/Product", request);
                 return response.IsSuccessStatusCode;
             }
             catch (Exception ex)
@@ -60,19 +60,19 @@ namespace SphahloHub_UI.Client.Service.Implementation
             }
         }
 
-        public async Task<bool> UpdateSphahloAsync(int sphahloId, SphahloRequest request)
+        public async Task<bool> UpdateProductAsync(int productId, ProductRequest request)
         {
             try
             {
-                var sphahlo = await _http.GetFromJsonAsync<SphahloResponse>($"api/Sphahlo/{sphahloId}");
-                if (sphahlo == null)
+                var product = await _http.GetFromJsonAsync<ProductResponse>($"api/Product/{productId}");
+                if (product == null)
                 {
                     _logger.LogError($"Unable to Find Item.");
-                    throw new ArgumentException($"Sphahlo with ID {sphahloId} not found");
+                    throw new ArgumentException($"Product with ID {productId} not found");
                 }
                 else
                 {
-                    var response = await _http.PutAsJsonAsync($"api/Sphahlo/{sphahloId}", request);
+                    var response = await _http.PutAsJsonAsync($"api/Product/{productId}", request);
                     return response.IsSuccessStatusCode;
                 }
 
@@ -84,21 +84,21 @@ namespace SphahloHub_UI.Client.Service.Implementation
             }
         }
 
-        public async Task<bool> ToggleSphahloStatusAsync(int sphahloId)
+        public async Task<bool> ToggleProductStatusAsync(int productId)
         {
 
             try
             {
-                var sphahlo = await _http.GetFromJsonAsync<SphahloResponse>($"api/Sphahlo/{sphahloId}");
-                if (sphahlo == null)
+                var product = await _http.GetFromJsonAsync<ProductResponse>($"api/Product/{productId}");
+                if (product == null)
                 {
                     _logger.LogError($"Unable to Find Item.");
-                    throw new ArgumentException($"Sphahlo with ID {sphahloId} not found");
+                    throw new ArgumentException($"Product with ID {productId} not found");
                 }
                 else
                 {
-                    sphahlo.IsActive = !sphahlo.IsActive;
-                    var response = await _http.PutAsJsonAsync($"api/Sphahlo/{sphahloId}", sphahlo);
+                    product.IsActive = !product.IsActive;
+                    var response = await _http.PutAsJsonAsync($"api/Product/{productId}", product);
                     return response.IsSuccessStatusCode;
                 }
 

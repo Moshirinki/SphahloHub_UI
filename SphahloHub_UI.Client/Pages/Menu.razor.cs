@@ -8,7 +8,7 @@ namespace SphahloHub_UI.Client.Pages
     public partial class Menu : ComponentBase
     {
         private bool _loading = true;
-        private List<SphahloResponse> _sphahlos = new();
+        private List<ProductResponse> _products = new();
         private Dictionary<int, int> _quantities = new();
         [Inject] public ICatalogService _catalogService { get; set; } = default!;
         [Inject] public ICartService _cartService { get; set; } = default!;
@@ -16,27 +16,27 @@ namespace SphahloHub_UI.Client.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            await LoadSphahlos();
+            await LoadProducts();
         }
 
-        private async Task LoadSphahlos()
+        private async Task LoadProducts()
         {
             _loading = true;
             try
             {
-                _sphahlos = await _catalogService.GetActiveSphahlosAsync() ?? new List<SphahloResponse>();
+                _products = await _catalogService.GetActiveProductsAsync() ?? new List<ProductResponse>();
 
                 // Initialize quantities
-                foreach (var sphahlo in _sphahlos)
+                foreach (var product in _products)
                 {
-                    _quantities[sphahlo.Id] = 1;
+                    _quantities[product.Id] = 1;
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error loading sphahlos: {ex.Message}");
-                snackbar.Add("Error loading spahhlos data", Severity.Error);
-                _sphahlos = new List<SphahloResponse>(); // Ensure we always have a valid list
+                Console.WriteLine($"Error loading products: {ex.Message}");
+                snackbar.Add("Error loading products data", Severity.Error);
+                _products = new List<ProductResponse>(); // Ensure we always have a valid list
             }
             finally
             {
@@ -46,18 +46,18 @@ namespace SphahloHub_UI.Client.Pages
             }
         }
 
-        private int GetQuantity(int sphahloId)
+        private int GetQuantity(int productId)
         {
-            return _quantities.TryGetValue(sphahloId, out var quantity) ? quantity : 1;
+            return _quantities.TryGetValue(productId, out var quantity) ? quantity : 1;
         }
 
-        private void AddToCart(SphahloResponse sphahlo, int quantity)
+        private void AddToCart(ProductResponse product, int quantity)
         {
-            _cartService.AddToCart(sphahlo, quantity);
-            snackbar.Add($"{quantity} x {sphahlo.Name} added to cart!", Severity.Success);
+            _cartService.AddToCart(product, quantity);
+            snackbar.Add($"{quantity} x {product.Name} added to cart!", Severity.Success);
 
             // Reset quantity to 1
-            _quantities[sphahlo.Id] = 1;
+            _quantities[product.Id] = 1;
         }
     }
 }

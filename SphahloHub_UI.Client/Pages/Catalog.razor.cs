@@ -8,14 +8,14 @@ namespace SphahloHub_UI.Client.Pages
     public partial class Catalog : ComponentBase
     {
         [Inject] public ICatalogService _catalogService { get; set; } = default!;
-        [Parameter] public SphahloRequest sphahloRequest { get; set; }
-        private List<SphahloResponse> sphahlos = new();
+        [Parameter] public ProductRequest productRequest { get; set; }
+        private List<ProductResponse> products = new();
         private IDialogService _dialogService { get; set; }
         private ISnackbar snackbar { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
-            sphahlos = await _catalogService.GetActiveSphahlosAsync() ?? new List<SphahloResponse>();
+            products = await _catalogService.GetActiveProductsAsync() ?? new List<ProductResponse>();
         }
 
         //private async Task ShowCreateDialog()
@@ -74,7 +74,7 @@ namespace SphahloHub_UI.Client.Pages
 
             if (result == true)
             {
-                var response = await _catalogService.ToggleSphahloStatusAsync(id);
+                var response = await _catalogService.ToggleProductStatusAsync(id);
                 if (response)
                 {
                     snackbar.Add("Item deleted successfully.", Severity.Success);

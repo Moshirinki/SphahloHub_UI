@@ -5,9 +5,9 @@ namespace SphahloHub_UI.Client.Service.Interface
 {
     public interface ICartService
     {
-        void AddToCart(SphahloResponse sphahlo, int quantity);
-        void UpdateQuantity(int sphahloId, int quantity);
-        void RemoveFromCart(int sphahloId);
+        void AddToCart(ProductResponse product, int quantity);
+        void UpdateQuantity(int productId, int quantity);
+        void RemoveFromCart(int productId);
         decimal GetTotal();
         void ClearCart();
     }

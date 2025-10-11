@@ -1,8 +1,8 @@
 ﻿<MudDialog>
     <DialogContent>
-        <MudTextField @bind-Value="sphahloRequest.Name" Label="Name" Required="true" />
-        <MudTextField @bind-Value="sphahloRequest.Description" Label="Description" />
-        <MudTextField @bind-Value="sphahloRequest.Price" Label="Price" />
+        <MudTextField @bind-Value="productRequest.Name" Label="Name" Required="true" />
+        <MudTextField @bind-Value="productRequest.Description" Label="Description" />
+        <MudTextField @bind-Value="productRequest.Price" Label="Price" />
     </DialogContent>
     <DialogActions>
         <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Save" IconColor="Color.Secondary" OnClick="Save" Size="Size.Medium">Save</MudButton>

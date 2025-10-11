@@ -2,12 +2,12 @@
 
 <MudTable Items="_cartService.CartItems">
     <HeaderContent>
-        <MudTh>Sphahlo</MudTh>
+        <MudTh>Product</MudTh>
         <MudTh>Qty</MudTh>
         <MudTh>Total</MudTh>
     </HeaderContent>
     <RowTemplate>
-        <MudTd>@context.Sphahlo.Name</MudTd>
+        <MudTd>@context.Product.Name</MudTd>
         <MudTd>@context.Quantity</MudTd>
         <MudTd>@context.CalculatePrice().ToString("C")</MudTd>
     </RowTemplate>
