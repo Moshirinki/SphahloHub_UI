@@ -33,7 +33,7 @@ namespace SphahloHub_UI.Client.Pages
             }
             else
             {
-                snackbar.Add("Failed to save account.", Severity.Error);
+                snackbar.Add("Failed to save a Product.", Severity.Error);
             }
         }
 

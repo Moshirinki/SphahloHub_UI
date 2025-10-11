@@ -50,6 +50,7 @@ namespace SphahloHub_UI.Client.Service.Implementation
         {
             try
             {
+                request.IsActive = true;
                 var response = await _http.PostAsJsonAsync("api/Product", request);
                 return response.IsSuccessStatusCode;
             }
