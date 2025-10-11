@@ -5,10 +5,10 @@ using SphahloHub_UI.Client.Service.Interface;
 
 namespace SphahloHub_UI.Client.Pages
 {
-    public partial class MaintainSphahlo
+    public partial class MaintainProduct
     {
         [Inject] private ICatalogService catalogService { get; set; } = default!;
-        [Parameter] public SphahloRequest sphahloRequest { get; set; } = new();
+        [Parameter] public ProductRequest productRequest { get; set; } = new();
         [CascadingParameter]
         IMudDialogInstance MudDialog { get; set; }
         [Inject] private ISnackbar snackbar { get; set; }
@@ -18,22 +18,22 @@ namespace SphahloHub_UI.Client.Pages
         {
             bool success;
 
-            if (sphahloRequest.Id == 0)
+            if (productRequest.Id == 0)
             {
-                success = await catalogService.CreateSphahloAsync(sphahloRequest);
+                success = await catalogService.CreateProductAsync(productRequest);
             }
             else
             {
-                success = await catalogService.UpdateSphahloAsync(sphahloRequest.Id, sphahloRequest);
+                success = await catalogService.UpdateProductAsync(productRequest.Id, productRequest);
             }
 
             if (success)
             {
-                MudDialog.Close(DialogResult.Ok(sphahloRequest));
+                MudDialog.Close(DialogResult.Ok(productRequest));
             }
             else
             {
-                snackbar.Add("Failed to save account.", Severity.Error);
+                snackbar.Add("Failed to save a Product.", Severity.Error);
             }
         }
 

@@ -1,6 +1,6 @@
 ﻿using SphahloHub_UI.Client.Service.Interface;
 using System.Net.Http.Json;
-using static SphahloHub_UI.Client.Domain.SphahloDTOs;
+using static SphahloHub_UI.Client.Domain.ProductDTOs;
 
 namespace SphahloHub_UI.Client.Service.Implementation
 {
@@ -13,9 +13,9 @@ namespace SphahloHub_UI.Client.Service.Implementation
         {
             var items = cart.CartItems.Select(ci =>
                 new CreateOrderItemReq(
-                    ci.Sphahlo.Id,
+                    ci.Product.Id,
                     ci.Quantity,
-                    ci.Sphahlo.Ingredients.Select(ing =>
+                    ci.Product.Ingredients.Select(ing =>
                         new CustomiseIngredientReq(
                             ing.IngredientId,
                             ci.IngredientSelections[ing.IngredientId],

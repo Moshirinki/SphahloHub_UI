@@ -2,7 +2,7 @@
 
 namespace SphahloHub_UI.Client.Domain.DTOs
 {
-    public class SphahloRequest
+    public class ProductRequest
     {
         [JsonIgnore]
         public int Id { get; set; }
