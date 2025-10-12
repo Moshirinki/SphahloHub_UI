@@ -7,6 +7,6 @@
         public decimal PriceDelta { get; set; } // + for add, - for remove discount if needed
         public bool IsOptional { get; set; } = true; // false = core ingredient
         public bool IsActive { get; set; } = true;
-        public ICollection<SphahloIngredient> SphahloIngredients { get; set; } = new List<SphahloIngredient>();
+        public ICollection<ProductIngredient> ProductIngredients { get; set; } = new List<ProductIngredient>();
     }
 }

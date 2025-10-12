@@ -1,14 +1,14 @@
 ﻿using SphahloHub_UI.Client.Domain.DTOs;
-using static SphahloHub_UI.Client.Domain.SphahloDTOs;
+using static SphahloHub_UI.Client.Domain.ProductDTOs;
 
 namespace SphahloHub_UI.Client.Service.Interface
 {
     public interface ICatalogService
     {
-        Task<List<SphahloResponse>> GetActiveSphahlosAsync();
-        Task<SphahloResponse> GetSphahloByIdAsync(int sphahloId);
-        Task<bool> CreateSphahloAsync(SphahloRequest request);
-        Task<bool> UpdateSphahloAsync(int sphahloId, SphahloRequest request);
-        Task<bool> ToggleSphahloStatusAsync(int sphahloId);
+        Task<List<ProductResponse>> GetActiveProductsAsync();
+        Task<ProductResponse> GetProductByIdAsync(int productId);
+        Task<bool> CreateProductAsync(ProductRequest request);
+        Task<bool> UpdateProductAsync(int productId, ProductRequest request);
+        Task<bool> ToggleProductStatusAsync(int productId);
     }
 }

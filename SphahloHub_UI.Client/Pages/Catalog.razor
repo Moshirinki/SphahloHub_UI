@@ -2,25 +2,25 @@
 
 
 <MudGrid>
-    @foreach (var sphahlo in sphahlos)
+    @foreach (var product in products)
     {
         <MudItem xs="12" sm="6" md="4">
             <MudCard Class="m-2">
                 <MudCardContent>
                     <MudCardHeader>
                         <CardHeaderContent>
-                            <MudText Typo="Typo.h6">@sphahlo.Name</MudText>
+                            <MudText Typo="Typo.h6">@product.Name</MudText>
                         </CardHeaderContent>
                         <CardHeaderActions>
-                            <MudIconButton Icon="@Icons.Material.Filled.Delete" OnClick="@(() => DeleteItem(sphahlo.Id))" Color="Color.Error" />
+                            <MudIconButton Icon="@Icons.Material.Filled.Delete" OnClick="@(() => DeleteItem(product.Id))" Color="Color.Error" />
                         </CardHeaderActions>
                     </MudCardHeader>
-                    <MudText>@sphahlo.Description</MudText>
-                    <MudText Color="Color.Primary">@sphahlo.BasePrice.ToString("C")</MudText>
+                    <MudText>@product.Description</MudText>
+                    <MudText Color="Color.Primary">@product.BasePrice.ToString("C")</MudText>
                 </MudCardContent>
                 <MudCardActions>
-                    <MudButton Variant="Variant.Filled" Color="Color.Primary">
-                        Customize
+                    <MudButton Variant="Variant.Filled" OnClick="ShowCreateDialog" Color="Color.Primary">
+                        Add
                     </MudButton>
                 </MudCardActions>
             </MudCard>

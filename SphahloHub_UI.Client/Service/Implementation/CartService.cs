@@ -10,9 +10,9 @@ namespace SphahloHub_UI.Client.Service.Implementation
 
         public event Action? OnCartChanged;
 
-        public void AddToCart(SphahloResponse sphahlo, int quantity = 1)
+        public void AddToCart(ProductResponse product, int quantity = 1)
         {
-            var existingItem = _items.FirstOrDefault(i => i.Sphahlo.Id == sphahlo.Id);
+            var existingItem = _items.FirstOrDefault(i => i.Product.Id == product.Id);
 
             if (existingItem != null)
             {
@@ -20,7 +20,7 @@ namespace SphahloHub_UI.Client.Service.Implementation
             }
             else
             {
-                _items.Add(new CartItemService { Sphahlo = sphahlo, Quantity = quantity });
+                _items.Add(new CartItemService { Product = product, Quantity = quantity });
             }
 
             OnCartChanged?.Invoke();
@@ -28,7 +28,7 @@ namespace SphahloHub_UI.Client.Service.Implementation
 
         public void UpdateQuantity(int productId, int quantity)
         {
-            var item = _items.FirstOrDefault(i => i.Sphahlo.Id == productId);
+            var item = _items.FirstOrDefault(i => i.Product.Id == productId);
             if (item != null)
             {
                 if (quantity <= 0)
@@ -44,9 +44,9 @@ namespace SphahloHub_UI.Client.Service.Implementation
             }
         }
 
-        public void RemoveFromCart(int sphahloId)
+        public void RemoveFromCart(int productId)
         {
-            var item = _items.FirstOrDefault(i => i.Sphahlo.Id == sphahloId);
+            var item = _items.FirstOrDefault(i => i.Product.Id == productId);
             if (item != null)
             {
                 _items.Remove(item);
