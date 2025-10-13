@@ -24,7 +24,7 @@ namespace SphahloHub_UI.Client.Pages
             _loading = true;
             try
             {
-                products = await _catalogService.GetActiveProductsAsync() ?? new List<ProductResponse>();
+                products = await _catalogService.GetAllProductsAsync() ?? new List<ProductResponse>();
             }
             catch (Exception ex)
             {
@@ -55,36 +55,45 @@ namespace SphahloHub_UI.Client.Pages
             {
                 products.Add(createdItem);
                 snackbar.Add("Item created successfully.", Severity.Success);
+                await LoadProducts();
             }
         }
 
-        //private async Task ShowEditDialog(SphahloResponse item)
-        //{
-        //    var parameters = new DialogParameters
-        //    {
-        //        ["sphahloRequest"] = new SphahloRequest
-        //        {
-        //            Name = item.Name,
-        //            Description = item.Description,
-        //            Price = item.BasePrice,
-        //        }
-        //    };
-        //    var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.Small, FullWidth = true };
+        private async Task ShowEditDialog(ProductResponse item)
+        {
+            var parameters = new DialogParameters
+            {
+                ["productRequest"] = new ProductRequest
+                {
+                    Id = item.Id,
+                    Name = item.Name,
+                    Description = item.Description,
+                    IsActive = item.IsActive,
+                    Price = item.BasePrice
+                }
+            };
+            var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.Small, FullWidth = true };
 
-        //    var dialogTask = _dialogService.ShowAsync<MaintainSphahlo>("Edit Item", parameters, options);
-        //    var dialog = await dialogTask;
-        //    var result = await dialog.Result;
+            var dialogTask = _dialogService.ShowAsync<MaintainProduct>("Edit Item", parameters, options);
+            var dialog = await dialogTask;
+            var result = await dialog.Result;
 
-        //    if (!result.Canceled && result.Data is SphahloResponse updatedItem)
-        //    {
-        //        var index = sphahlos.FindIndex(a => a.Id == updatedItem.Id);
-        //        if (index >= 0)
-        //        {
-        //            sphahlos[index] = updatedItem;
-        //            snackbar.Add("Item updated successfully.", Severity.Success);
-        //        }
-        //    }
-        //}
+            if (!result.Canceled && result.Data is ProductResponse updatedItem)
+            {
+                var index = products.FindIndex(a => a.Id == updatedItem.Id);
+                if (index >= 0)
+                {
+                    products[index] = updatedItem;
+                    snackbar.Add("Item updated successfully.", Severity.Success);
+                    StateHasChanged();
+                }
+                else
+                {
+                    snackbar.Add("Failed to update the item.", Severity.Error);
+                }
+            }
+        }
+
         private async Task DeleteItem(int id)
         {
             var itemName = products.Where(x => x.Id == id).Select(x => x.Name).First();

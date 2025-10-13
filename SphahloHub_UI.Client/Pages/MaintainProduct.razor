@@ -2,6 +2,13 @@
     <DialogContent>
         <MudTextField @bind-Value="productRequest.Name" Label="Name" Required="true" />
         <MudTextField @bind-Value="productRequest.Description" Label="Description" />
+        @if (!IsCreateMode)
+        {
+            <MudSwitch @bind-Value="productRequest.IsActive"
+                       Label="Active"
+                       Color="Color.Success"
+                       Class="mt-2" />
+        }
         <MudTextField @bind-Value="productRequest.Price" Label="Price" />
     </DialogContent>
     <DialogActions>
