@@ -9,16 +9,18 @@ namespace SphahloHub_UI.Client.Pages
     {
         [Inject] private ICatalogService catalogService { get; set; } = default!;
         [Parameter] public ProductRequest productRequest { get; set; } = new();
+        private bool IsCreateMode => productRequest.Id == null && productRequest.Id <= 0;
+
         [CascadingParameter]
-        IMudDialogInstance MudDialog { get; set; }
-        [Inject] private ISnackbar snackbar { get; set; }
+        IMudDialogInstance MudDialog { get; set; } = default!;
+        [Inject] private ISnackbar snackbar { get; set; } = default!;
 
 
         private async Task Save()
         {
             bool success;
 
-            if (productRequest.Id == 0)
+            if (IsCreateMode)
             {
                 success = await catalogService.CreateProductAsync(productRequest);
             }

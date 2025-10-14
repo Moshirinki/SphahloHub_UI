@@ -1,29 +1,46 @@
 ﻿@page "/catalog"
+@using SphahloHub_UI.Client.Domain.DTOs;
 
+<MudDataGrid Items="@products" Filterable="false" SortMode="@SortMode.None" Groupable="false">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Available Stock</MudText>
+        <MudSpacer />
+        <MudButton OnClick="@ShowCreateDialog" Color="@Color.Success" Class="add-item-btn">Add Item</MudButton>
 
-<MudGrid>
-    @foreach (var product in products)
-    {
-        <MudItem xs="12" sm="6" md="4">
-            <MudCard Class="m-2">
-                <MudCardContent>
-                    <MudCardHeader>
-                        <CardHeaderContent>
-                            <MudText Typo="Typo.h6">@product.Name</MudText>
-                        </CardHeaderContent>
-                        <CardHeaderActions>
-                            <MudIconButton Icon="@Icons.Material.Filled.Delete" OnClick="@(() => DeleteItem(product.Id))" Color="Color.Error" />
-                        </CardHeaderActions>
-                    </MudCardHeader>
-                    <MudText>@product.Description</MudText>
-                    <MudText Color="Color.Primary">@product.BasePrice.ToString("C")</MudText>
-                </MudCardContent>
-                <MudCardActions>
-                    <MudButton Variant="Variant.Filled" OnClick="ShowCreateDialog" Color="Color.Primary">
-                        Add
-                    </MudButton>
-                </MudCardActions>
-            </MudCard>
-        </MudItem>
-    }
-</MudGrid>
+    </ToolBarContent>
+    <Columns>
+        <PropertyColumn Property="x => x.Id" Title="ID" />
+        <PropertyColumn Property="x => x.Name" Title="Name" />
+        <TemplateColumn Title="Status">
+            <CellTemplate>
+                <MudChip Color="@(context.Item.IsActive? Color.Success: Color.Error)"
+                         Size="Size.Small"
+                         Icon="@(context.Item.IsActive? Icons.Material.Filled.CheckCircle : Icons.Material.Filled.Cancel)">
+                    @(context.Item.IsActive ? "Available" : "Unavailable")
+                </MudChip>
+            </CellTemplate>
+        </TemplateColumn>
+        <PropertyColumn Property="x => x.Description" Title="Description" />
+        <PropertyColumn Property="x => x.BasePrice" Title="Price" Format="C" />
+        <TemplateColumn Title="Actions" CellClass="d-flex justify-end">
+            <CellTemplate>
+                <MudStack Row>
+                    <MudIconButton Icon="@Icons.Material.Filled.Edit"
+                                   OnClick="@(() => ShowEditDialog(context.Item))"
+                                   Color="Color.Primary"
+                                   Size="Size.Small"
+                                   Title="Edit product"
+                                   aria-label="Edit" />
+
+                    <MudIconButton Icon="@Icons.Material.Filled.Delete"
+                                   OnClick="@(() => DeleteItem(context.Item.Id))"
+                                   Color="Color.Error"
+                                   Size="Size.Small"
+                                   Disabled=@(context.Item.IsActive == false)
+                                   Title="Delete product"
+                                   aria-label="Delete" />
+                </MudStack>
+            </CellTemplate>
+        </TemplateColumn>
+    </Columns>
+</MudDataGrid>

@@ -14,6 +14,21 @@ namespace SphahloHub_UI.Client.Service.Implementation
             _http = httpClient;
             _logger = logger;
         }
+        public async Task<List<ProductResponse>> GetAllProductsAsync()
+        {
+            try
+            {
+                var products = await _http.GetFromJsonAsync<List<ProductResponse>>("api/product");
+                return products!
+                    .OrderByDescending(x => x.IsActive)
+                    .ToList();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to load  products.");
+                throw new ApplicationException("Failed to retrieve  products. Please try again later.");
+            }
+        }
 
         public async Task<List<ProductResponse>> GetActiveProductsAsync()
         {
@@ -31,6 +46,7 @@ namespace SphahloHub_UI.Client.Service.Implementation
                 throw new ApplicationException("Failed to retrieve available products. Please try again later.");
             }
         }
+
 
         public async Task<ProductResponse> GetProductByIdAsync(int productId)
         {

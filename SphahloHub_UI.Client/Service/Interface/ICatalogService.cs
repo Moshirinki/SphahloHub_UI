@@ -5,6 +5,7 @@ namespace SphahloHub_UI.Client.Service.Interface
 {
     public interface ICatalogService
     {
+        Task<List<ProductResponse>> GetAllProductsAsync();
         Task<List<ProductResponse>> GetActiveProductsAsync();
         Task<ProductResponse> GetProductByIdAsync(int productId);
         Task<bool> CreateProductAsync(ProductRequest request);
