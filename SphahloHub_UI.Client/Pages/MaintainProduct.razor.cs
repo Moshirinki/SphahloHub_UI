@@ -12,8 +12,8 @@ namespace SphahloHub_UI.Client.Pages
         private bool IsCreateMode => productRequest.Id == null && productRequest.Id <= 0;
 
         [CascadingParameter]
-        IMudDialogInstance MudDialog { get; set; }
-        [Inject] private ISnackbar snackbar { get; set; }
+        IMudDialogInstance MudDialog { get; set; } = default!;
+        [Inject] private ISnackbar snackbar { get; set; } = default!;
 
 
         private async Task Save()
